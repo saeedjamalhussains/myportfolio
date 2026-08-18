@@ -1,0 +1,103 @@
+.slider {
+    position: absolute;
+    top: 48%;
+    left: 22%;
+    z-index: 20;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    width: 54px;
+    height: 128px;
+    padding-bottom: 10px;
+    border-radius: 18px;
+    overflow: hidden;
+    cursor: grab;
+    /* The gesture is vertical, so the browser must not claim it for scrolling */
+    touch-action: none;
+    user-select: none;
+    background: rgba(58, 44, 30, 0.16);
+    backdrop-filter: blur(10px);
+    box-shadow:
+        inset 0 0 0 1px rgba(88, 66, 44, 0.09),
+        0 6px 16px -5px rgba(74, 52, 32, 0.22);
+    transform: rotate(-6deg);
+    transition: transform 0.16s var(--ease), box-shadow 0.16s var(--ease);
+}
+
+.slider:focus-visible {
+    outline: 2px solid var(--ink);
+    outline-offset: 3px;
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .slider:hover {
+        transform: rotate(-6deg) scale(1.03);
+    }
+}
+
+.dragging {
+    cursor: grabbing;
+    transform: rotate(-6deg) scale(1.06);
+}
+
+.fill {
+    position: absolute;
+    inset: auto 0 0 0;
+    background: #fffdfa;
+    /* No transition: the fill must track the finger 1:1 while dragging */
+}
+
+.glyph {
+    position: relative;
+    width: 17px;
+    height: 17px;
+    color: var(--ink-soft);
+    /* Blend against whichever half of the track it sits over */
+    mix-blend-mode: luminosity;
+}
+
+.glyph svg {
+    width: 100%;
+    height: 100%;
+}
+
+/* Below the desk breakpoint the collage is gone, but this is a real control —
+   so it detaches and parks in the corner instead of disappearing with it. */
+@media (max-width: 1200px) {
+    .slider {
+        position: fixed;
+        top: auto;
+        left: auto;
+        right: 20px;
+        bottom: 20px;
+        width: 46px;
+        height: 108px;
+        transform: none;
+    }
+
+    .slider:hover,
+    .dragging {
+        transform: scale(1.04);
+    }
+}
+
+/* At zero the track is empty and the page is dark, so the control would all but
+   vanish. A lit rim keeps it findable — and hints that it's still a light. */
+:global(:root[data-theme="dark"]) .slider {
+    background: rgba(255, 244, 230, 0.07);
+    box-shadow:
+        inset 0 0 0 1px rgba(255, 222, 180, 0.22),
+        0 0 22px -4px rgba(255, 190, 120, 0.28);
+}
+
+:global(:root[data-theme="dark"]) .glyph {
+    color: rgba(255, 226, 186, 0.92);
+    mix-blend-mode: normal;
+}
+
+@media (prefers-reduced-transparency: reduce) {
+    .slider {
+        backdrop-filter: none;
+        background: rgba(58, 44, 30, 0.24);
+    }
+}

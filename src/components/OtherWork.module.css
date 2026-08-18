@@ -1,0 +1,123 @@
+.section {
+    padding-top: var(--space-xl);
+    padding-bottom: var(--space-xl);
+}
+
+.list {
+    list-style: none;
+    margin-top: var(--space-md);
+    border-top: 1px solid var(--line);
+}
+
+.row {
+    border-bottom: 1px solid var(--line);
+}
+
+.trigger {
+    display: grid;
+    grid-template-columns: minmax(0, 15rem) minmax(0, 1fr) auto;
+    align-items: baseline;
+    gap: var(--space-md);
+    width: 100%;
+    padding: 1.4rem 0;
+    text-align: left;
+    transition: opacity 0.18s var(--ease-out);
+}
+
+/* Gated: on touch, hover sticks after a tap */
+@media (hover: hover) and (pointer: fine) {
+    .row:hover .trigger {
+        opacity: 0.62;
+    }
+}
+
+.trigger:active {
+    opacity: 0.45;
+    transition-duration: 0.1s;
+}
+
+.head {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+}
+
+.title {
+    font-size: 0.9375rem;
+    font-weight: 600;
+}
+
+.meta {
+    font-size: 0.6875rem;
+    color: var(--ink-muted);
+}
+
+.blurb {
+    font-size: 0.78125rem;
+    color: var(--ink-soft);
+}
+
+.chevron {
+    display: grid;
+    place-items: center;
+    width: 16px;
+    height: 16px;
+    color: var(--ink-muted);
+    transition: transform 0.22s var(--ease-out);
+}
+
+.chevron svg {
+    width: 100%;
+    height: 100%;
+}
+
+.chevronOpen {
+    transform: rotate(45deg);
+}
+
+.detailWrap {
+    overflow: hidden;
+}
+
+.detailLink {
+    display: inline-block;
+    margin-bottom: 1.6rem;
+    font-size: 0.75rem;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    text-decoration-color: var(--line);
+    transition: text-decoration-color 0.18s var(--ease-out);
+}
+
+.detailLink:hover {
+    text-decoration-color: currentColor;
+}
+
+.detail {
+    max-width: 44rem;
+    padding: 0 0 1rem;
+    font-size: 0.8125rem;
+    line-height: 1.85;
+    color: var(--ink-soft);
+    text-wrap: pretty;
+}
+
+@media (max-width: 760px) {
+    .trigger {
+        grid-template-columns: minmax(0, 1fr) auto;
+        gap: 0.55rem 1rem;
+    }
+
+    .head {
+        grid-column: 1;
+    }
+
+    .blurb {
+        grid-column: 1 / -1;
+    }
+
+    .chevron {
+        grid-column: 2;
+        grid-row: 1;
+    }
+}

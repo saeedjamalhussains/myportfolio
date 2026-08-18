@@ -1,0 +1,124 @@
+.hero {
+    position: relative;
+    min-height: 100svh;
+    display: grid;
+    place-items: center;
+    padding: var(--space-xl) var(--space-md);
+    overflow: hidden;
+}
+
+.center {
+    position: relative;
+    /* Above the desk objects, but they stay grabbable around it */
+    z-index: 10;
+    pointer-events: none;
+    max-width: 36rem;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.name {
+    font-family: var(--font-script);
+    /* Two lines of script, so a little smaller than a single-line wordmark
+       would be — this has to clear the desk objects on either side. */
+    font-size: clamp(3rem, 8.5vw, 6rem);
+    font-weight: 500;
+    line-height: 0.95;
+    letter-spacing: 0.01em;
+}
+
+.roleAlt {
+    /* Generous, because this sits directly under the script name and both
+       typefaces have descenders that would otherwise collide. */
+    margin-top: 2.25rem;
+    font-family: var(--font-script);
+    font-size: 1.25rem;
+    color: var(--ink-soft);
+    line-height: 1.2;
+}
+
+.tagline {
+    margin-top: 1.1rem;
+    font-size: 0.8125rem;
+    line-height: 1.75;
+    color: var(--ink-soft);
+    text-wrap: balance;
+}
+
+.marks {
+    display: flex;
+    gap: 0.75rem;
+    margin-top: 2.75rem;
+    pointer-events: auto;
+}
+
+.mark {
+    position: relative;
+    display: grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    /* Roughly a squircle at this size */
+    border-radius: 13px;
+    color: var(--ink-soft);
+    cursor: default;
+    /* A material, not an outlined box: a soft top-lit gradient, a hairline of
+       light along the top edge, and a contact shadow tight to the tile with a
+       wider ambient one under it. No solid border. */
+    background: linear-gradient(var(--surface), var(--paper-sunk));
+    box-shadow: var(--rim), var(--lift-1);
+    transition:
+        transform 0.16s var(--ease-out),
+        box-shadow 0.16s var(--ease-out),
+        color 0.16s var(--ease-out);
+}
+
+.markGlyph {
+    width: 19px;
+    height: 19px;
+}
+
+/* Gated so a tap on touch doesn't leave the tile stuck in its hover state */
+@media (hover: hover) and (pointer: fine) {
+    .mark:hover {
+        transform: translateY(-2px);
+        color: var(--ink);
+        box-shadow: var(--rim), var(--lift-2);
+    }
+}
+
+.mark:active {
+    transform: translateY(0) scale(0.97);
+    transition-duration: 0.1s;
+}
+
+.srOnly {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+}
+
+.hint {
+    position: absolute;
+    bottom: 1.75rem;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+    font-size: 0.6875rem;
+    letter-spacing: 0.04em;
+    color: var(--ink-muted);
+    white-space: nowrap;
+}
+
+/* Matches the width at which Desk.module.css drops the collage entirely —
+   below this there is nothing left to drag. */
+@media (max-width: 1000px) {
+    .hintDrag {
+        display: none;
+    }
+}

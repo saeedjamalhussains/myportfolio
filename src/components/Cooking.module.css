@@ -1,0 +1,29 @@
+.cooking {
+    max-width: 34rem;
+    margin: 0 auto;
+    padding: var(--space-2xl) var(--space-md) var(--space-xl);
+    text-align: center;
+}
+
+.body {
+    margin-top: 1.5rem;
+    font-size: 0.875rem;
+    line-height: 1.9;
+    color: var(--ink-soft);
+    text-wrap: pretty;
+}
+
+.highlight {
+    font-family: var(--font-script);
+    font-style: normal;
+    font-size: 1.4em;
+    color: var(--ink);
+    /* Hand-underlined, like a marker pass over the name */
+    background: linear-gradient(transparent 72%, rgba(198, 93, 36, 0.28) 72%);
+}
+
+.footnote {
+    margin-top: 1.25rem;
+    font-size: 0.75rem;
+    color: var(--ink-muted);
+}
